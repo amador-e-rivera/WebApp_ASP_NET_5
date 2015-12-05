@@ -1,6 +1,9 @@
 /*site.css*/
-body {
+
+body, html {
     font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 label {
@@ -15,14 +18,48 @@ input[type=text], input[type=password] {
 
 #main {
     background-color: #CECECE;
+    padding: 5px;
+    margin: 0;
+    overflow: auto;
 }
 
 #footer {
     background-color: #2F2F2F;
     color: #CECECE;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 .userimg {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 50px;
+    max-height: 50px;
+    border: 1px solid black;
+    padding: 2px;
+}
+
+.menu {
+    font-size: 12px;
+}
+
+    .menu li {
+        list-style-type: none;
+    }
+
+        .menu li.active {
+            font-weight: bold;
+        }
+
+#sidebar {
+    background-color: #8E8E8E;
+    position: fixed;
+    height: 100%;
+    width: 250px;
+    overflow: hidden;
+    left: 0;
+    margin: 0;
+}
+
+#wrapper {
+    margin: 0 0 0 250px;
 }
