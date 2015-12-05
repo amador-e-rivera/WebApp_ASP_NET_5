@@ -1,0 +1,28 @@
+/*site.css*/
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+}
+
+input[type=text], input[type=password] {
+    width: 150px;
+}
+
+
+#main {
+    background-color: #CECECE;
+}
+
+#footer {
+    background-color: #2F2F2F;
+    color: #CECECE;
+}
+
+.userimg {
+    max-width: 100px;
+    max-height: 100px;
+}
