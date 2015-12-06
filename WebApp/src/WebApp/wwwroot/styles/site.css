@@ -15,6 +15,21 @@ input[type=text], input[type=password] {
     width: 150px;
 }
 
+#wrapper {
+    margin: 0 0 0 250px;
+    -moz-transition: margin-left ease .25s;
+    -o-transition: margin-left ease .25s;
+    -webkit-transition: margin-left ease .25s;
+    transition: margin-left ease .25s;
+}
+
+    #wrapper.hide-sidebar {
+        margin-left: 50px;
+        -moz-transition: margin-left ease .25s;
+        -o-transition: margin-left ease .25s;
+        -webkit-transition: margin-left ease .25s;
+        transition: margin-left ease .25s;
+    }
 
 #main {
     background-color: #CECECE;
@@ -31,10 +46,46 @@ input[type=text], input[type=password] {
     bottom: 0;
 }
 
+
+#sidebar {
+    background-color: #8E8E8E;
+    position: fixed;
+    height: 100%;
+    width: 250px;
+    overflow: hidden;
+    left: 0;
+    margin: 0;
+    -moz-transition: left ease .25s;
+    -o-transition: left ease .25s;
+    -webkit-transition: left ease .25s;
+    transition: left ease .25s;
+}
+
+    #sidebar.hide-sidebar {
+        left: -200px;
+        -moz-transition: left ease .25s;
+        -o-transition: left ease .25s;
+        -webkit-transition: left ease .25s;
+        transition: left ease .25s;
+    }
+
+#sidebar.hide-sidebar i {
+    text-align: right;
+}
+
+#sidebar_btn {
+    background-color: #2F2F2F;
+    text-align: center;
+    margin-bottom: 3px;
+}
+
+    #sidebar_btn i {
+        color: #ffffff;
+    }
+
 .userimg {
-    max-width: 50px;
-    max-height: 50px;
-    border: 1px solid black;
+    max-width: 80px;
+    max-height: 80px;
     padding: 2px;
 }
 
@@ -49,17 +100,3 @@ input[type=text], input[type=password] {
         .menu li.active {
             font-weight: bold;
         }
-
-#sidebar {
-    background-color: #8E8E8E;
-    position: fixed;
-    height: 100%;
-    width: 250px;
-    overflow: hidden;
-    left: 0;
-    margin: 0;
-}
-
-#wrapper {
-    margin: 0 0 0 250px;
-}

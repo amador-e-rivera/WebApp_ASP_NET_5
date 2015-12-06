@@ -2,19 +2,25 @@
 <html>
     <head>
         <title>Web App</title>
-        <meta charset="UTF-8"> 
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-        <link href="/styles/site.css" rel="stylesheet" type="text/css">
+        <meta charset="UTF-8">
+        <link href="lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+        <link href="/styles/site.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div id="sidebar">
-            <img class="userimg" src="images/mypic.jpg" alt="My Picture"/>
-            <span>Amador Rivera</span>
-            <ul class="menu">
-                <li class="active"><a href="#Home">Home</a></li>
-                <li><a href="#About">About</a></li>
-                <li><a href="#Contact">Contact</a></li>
-            </ul>
+            <div id="sidebar_btn">
+                <i class="fa fa-arrows-h"></i>
+            </div>
+            <div id="menu-wrapper">
+                <img class="userimg" src="images/mypic.jpg" alt="My Picture" />
+                <span id="username">Amador Rivera</span>
+                <ul class="menu">
+                    <li class="active"><a href="#Home">Home</a></li>
+                    <li><a href="#About">About</a></li>
+                    <li><a href="#Contact">Contact</a></li>
+                </ul>
+            </div>
         </div>
         <div id="wrapper">
             <div id="main">
@@ -37,5 +43,7 @@
                 &copy; 2015 Amador Rivera
             </div>
         </div>
+        <script type="text/javascript" src="lib/jQuery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="scripts/site.js"></script>
     </body>
 </html>
