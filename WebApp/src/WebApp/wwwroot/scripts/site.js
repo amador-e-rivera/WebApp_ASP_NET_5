@@ -5,7 +5,7 @@ var WEBAPP = (function () {
     }
 
     function setEventHandlers() {
-        var $sidebarAndWrapper = $("#sidebar-wrapper,#main-wrapper");
+        var $sidebarAndWrapper = $("#sidebar-wrapper,#main-wrapper, #user, .menu");
 
         $("#sidebar_btn").on("click", function () {
             $sidebarAndWrapper.toggleClass("hide-sidebar");
