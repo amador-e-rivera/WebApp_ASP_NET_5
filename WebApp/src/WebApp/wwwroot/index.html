@@ -8,41 +8,44 @@
         <link href="/styles/site.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
-        <div id="sidebar">
-            <div id="sidebar_btn">
-                <i class="fa fa-arrows-h"></i>
+        <div id="page-wrapper">
+            <div id="sidebar-wrapper">
+                <div id="sidebar_btn">
+                    <i class="fa fa-arrows-h"></i>
+                </div>
+                <div id="menu-wrapper">
+                    <img class="userimg" src="images/mypic.jpg" alt="My Picture" />
+                    <span id="username">Amador Rivera</span>
+                    <ul class="menu">
+                        <li class="active"><a href="#Home">Home</a></li>
+                        <li><a href="#About">About</a></li>
+                        <li><a href="#Contact">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-            <div id="menu-wrapper">
-                <img class="userimg" src="images/mypic.jpg" alt="My Picture" />
-                <span id="username">Amador Rivera</span>
-                <ul class="menu">
-                    <li class="active"><a href="#Home">Home</a></li>
-                    <li><a href="#About">About</a></li>
-                    <li><a href="#Contact">Contact</a></li>
-                </ul>
+            <div id="main-wrapper">
+                <div id="main">
+                    <h2>Random Text</h2>
+                    <form>
+                        <div>
+                            <label>Date</label>
+                            <input />
+                        </div>
+                        <div>
+                            <label>Location</label>
+                            <input />
+                        </div>
+                        <div>
+                            <input type="submit" value="Add" />
+                        </div>
+                    </form>
+                </div>
+                <div id="footer">
+                    &copy; 2015 Amador Rivera
+                </div>
             </div>
         </div>
-        <div id="wrapper">
-            <div id="main">
-                <h2>Random Text</h2>
-                <form>
-                    <div>
-                        <label>Date</label>
-                        <input />
-                    </div>
-                    <div>
-                        <label>Location</label>
-                        <input />
-                    </div>
-                    <div>
-                        <input type="submit" value="Add" />
-                    </div>
-                </form>
-            </div>
-            <div id="footer">
-                &copy; 2015 Amador Rivera
-            </div>
-        </div>
+
         <script type="text/javascript" src="lib/jQuery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="scripts/site.js"></script>
     </body>

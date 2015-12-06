@@ -1,9 +1,10 @@
 /*site.css*/
 
-body, html {
+html, body {
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
+    height: 100%;
 }
 
 label {
@@ -15,63 +16,37 @@ input[type=text], input[type=password] {
     width: 150px;
 }
 
-#wrapper {
-    margin: 0 0 0 250px;
-    -moz-transition: margin-left ease .25s;
-    -o-transition: margin-left ease .25s;
-    -webkit-transition: margin-left ease .25s;
-    transition: margin-left ease .25s;
+#page-wrapper {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -ms-align-content: stretch;
+    -webkit-align-content: stretch;
+    align-content: stretch;
 }
 
-    #wrapper.hide-sidebar {
-        margin-left: 50px;
-        -moz-transition: margin-left ease .25s;
-        -o-transition: margin-left ease .25s;
-        -webkit-transition: margin-left ease .25s;
-        transition: margin-left ease .25s;
-    }
-
-#main {
-    background-color: #CECECE;
-    padding: 5px;
-    margin: 0;
-    overflow: auto;
-}
-
-#footer {
-    background-color: #2F2F2F;
-    color: #CECECE;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-
-#sidebar {
-    background-color: #8E8E8E;
-    position: fixed;
+#sidebar-wrapper {
+    float: left;
     height: 100%;
     width: 250px;
     overflow: hidden;
-    left: 0;
-    margin: 0;
-    -moz-transition: left ease .25s;
-    -o-transition: left ease .25s;
-    -webkit-transition: left ease .25s;
-    transition: left ease .25s;
+    background-color: #8E8E8E;
+    -moz-transition: width .25s;
+    -o-transition: width .25s;
+    -webkit-transition: width .25s;
+    transition: width .25s;
 }
 
-    #sidebar.hide-sidebar {
-        left: -200px;
-        -moz-transition: left ease .25s;
-        -o-transition: left ease .25s;
-        -webkit-transition: left ease .25s;
-        transition: left ease .25s;
+    #sidebar-wrapper.hide-sidebar {
+        width: 50px;
+        -moz-transition: width .25s;
+        -o-transition: width .25s;
+        -webkit-transition: width .25s;
+        transition: width .25s;
     }
-
-#sidebar.hide-sidebar i {
-    text-align: right;
-}
 
 #sidebar_btn {
     background-color: #2F2F2F;
@@ -100,3 +75,24 @@ input[type=text], input[type=password] {
         .menu li.active {
             font-weight: bold;
         }
+
+#main-wrapper {
+    height: 100%;
+    overflow: auto;
+    flex-grow: 1;
+}
+
+#main {
+    height:100%;
+    background-color: #CECECE;
+    padding: 5px;
+    margin: 0;
+}
+
+#footer {
+    background-color: #2F2F2F;
+    color: #CECECE;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
