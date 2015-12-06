@@ -59,14 +59,17 @@ input[type=text], input[type=password] {
 
 #sidebar_btn {
     background-color: #2F2F2F;
+    color: #E1E1E1;
     text-align: center;
     margin-bottom: 3px;
     cursor: pointer;
 }
 
-    #sidebar_btn i {
-        color: #ffffff;
-    }
+#sidebar_btn:hover {
+    background-color: #E1E1E1;
+    color: #2F2F2F;
+}
+
 /* #endregion */
 
 /* #region User name and image */
@@ -79,16 +82,13 @@ input[type=text], input[type=password] {
 }
 
     #user img {
+        border-radius: 5px;
         max-width: 40%;
         max-height: 40%;
     }
 
     #user span {
-        opacity: 1.0;
-        -moz-transition: opacity ease 0.3s;
-        -o-transition: opacity ease 0.3s;
-        -webkit-transition: opacity ease 0.3s;
-        transition: opacity ease 0.3s;
+        font-size: 12px;
     }
 
     #user.hide-sidebar img {
@@ -102,20 +102,11 @@ input[type=text], input[type=password] {
 
     #user.hide-sidebar span {
         display: none;
-        opacity: 0.0;
-        -moz-transition: opacity ease 0.25s;
-        -o-transition: opacity ease 0.25s;
-        -webkit-transition: opacity ease 0.25s;
-        transition: opacity ease 0.25s;
     }
 
 /* #endregion */
 
 /* #region Menu */
-#menu-wrapper ul {
-    text-align: center;
-}
-
 .menu {
     font-size: 16px;
     padding: 0;
@@ -123,8 +114,8 @@ input[type=text], input[type=password] {
 
     .menu li {
         list-style-type: none;
-        height: 30px;
-        text-align: center;
+        height: 40px;
+        text-align: left;
     }
 
         .menu li.active {
@@ -141,15 +132,28 @@ input[type=text], input[type=password] {
             text-align: left;
         }
 
-.menu span.menu-item-icon {
-    font-size: 20px;
-    display: inline-block;
-    text-align: center;
-    width: 30px;
-}
+    .menu span.menu-item-icon {
+        font-size: 20px;
+        display: inline-block;
+        text-align: center;
+        width: 30px;
+    }
+
+    .menu span.menu-item-text {
+        opacity: 1;
+        -moz-transition: opacity ease 0.5s;
+        -o-transition: opacity ease 0.5s;
+        -webkit-transition: opacity ease 0.5s;
+        transition: opacity ease 0.5s;
+    }
 
 .menu.hide-sidebar span.menu-item-text {
+    opacity: 0;
     display: none;
+}
+
+.menu.hide-sidebar li {
+    text-align: center;
 }
 
 /* #endregion */
