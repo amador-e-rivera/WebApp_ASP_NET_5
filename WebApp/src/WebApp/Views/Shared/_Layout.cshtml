@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Web App";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="UTF-8">
+    <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href="~/styles/site.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="page-wrapper">
+        <div id="sidebar-wrapper">
+            <div id="sidebar_btn">
+                <i class="fa fa-arrows-h"></i>
+            </div>
+            <div id="menu-wrapper">
+                <div id="user">
+                    <img class="userimg" src="~/images/mypic.jpg" alt="My Picture" />
+                    <br />
+                    <span id="username">Amador R.</span>
+                </div>
+                <ul class="menu">
+                    <li class="active">
+                        <a asp-controller="App" asp-action="Index">
+                            <span class="menu-item-icon"><i class="fa fa-home"></i></span>
+                            <span class="menu-item-text">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="App" asp-action="About">
+                            <span class="menu-item-icon"><i class="fa fa-info"></i></span>
+                            <span class="menu-item-text">About</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="App" asp-action="Contact">
+                            <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
+                            <span class="menu-item-text">Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="main-wrapper">
+            <div id="main">
+                <div>
+                    @RenderBody()
+                </div>
+            </div>
+            <div id="footer">
+                &copy; 2015 Amador Rivera
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/lib/jQuery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/scripts/site.js"></script>
+</body>
+</html>
