@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApp.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
+using WebApp.Models;
 
 namespace WebApp
 {
@@ -32,10 +33,12 @@ namespace WebApp
         {
             services.AddMvc();
             services.AddScoped<IMailService, DebugMailService>();
+            services.AddEntityFramework().AddSqlServer().AddDbContext<WebAppContext>();
+            services.AddTransient<WebAppContextSeeder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, WebAppContextSeeder seeder)
         {
             app.UseStaticFiles();
 
@@ -43,9 +46,11 @@ namespace WebApp
                 config.MapRoute(
                     name: "Default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "App", action = "Index"}
+                    defaults: new { controller = "WebApp", action = "Index"}
                 );
             });
+
+            seeder.SeedDatabase();
         }
 
         // Entry point for the application.

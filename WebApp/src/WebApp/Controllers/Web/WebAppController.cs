@@ -1,21 +1,26 @@
 using Microsoft.AspNet.Mvc;
 using System;
+using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
+using System.Linq;
 
 namespace WebApp.Controllers.Web
 {
-    public class AppController : Controller
+    public class WebAppController : Controller
     {
         private IMailService _mailService;
+        private WebAppContext _context;
 
-        public AppController(IMailService service)
+        public WebAppController(IMailService service, WebAppContext context)
         {
+            _context = context;
             _mailService = service;
         }
 
         public IActionResult Index()
         {
+            var trips = _context.Trips.OrderBy(c => c.Name).ToList();
             return View();
         }
 

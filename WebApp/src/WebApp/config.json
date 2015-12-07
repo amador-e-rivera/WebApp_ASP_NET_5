@@ -1,5 +1,8 @@
 {
   "AppSettings": {
-    "SiteEmailAddress" :  "amador.e.rivera@gmail.com"
+    "SiteEmailAddress": "amador.e.rivera@gmail.com"
+  },
+  "Data": {
+    "WebAppContextConnection": "Server=(localdb)\\v11.0;Database=WebAppDB;Trusted_Connection=true;MultipleActiveResultSets=true;"
   }
 }
