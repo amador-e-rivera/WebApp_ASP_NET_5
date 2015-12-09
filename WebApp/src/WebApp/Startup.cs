@@ -38,6 +38,7 @@ namespace WebApp
                 .AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
             services.AddLogging();
             services.AddScoped<IMailService, DebugMailService>();
+            services.AddScoped<GeoCodingService>();
             services.AddEntityFramework().AddSqlServer().AddDbContext<WebAppContext>();
             services.AddTransient<WebAppContextSeeder>();
             services.AddScoped<IWebAppRepository, WebAppRepository>();

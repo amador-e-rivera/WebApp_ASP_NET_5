@@ -15,7 +15,9 @@
     "EntityFramework.Commands": "7.0.0-rc1-final",
     "System.Linq": "4.0.1-beta-23516",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
-    "AutoMapper": "4.1.1"
+    "AutoMapper": "4.1.1",
+    "System.Net.Http": "4.0.0",
+    "Newtonsoft.Json": "7.0.1"
   },
 
   "commands": {
@@ -24,7 +26,10 @@
   },
 
   "frameworks": {
-    "dnx451": { },
+    "dnx451": {
+      "dependencies": {
+      }
+    },
     "dnxcore50": { }
   },
 

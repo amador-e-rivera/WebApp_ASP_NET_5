@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using WebApp.Models;
+using WebApp.Services;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers.Api
@@ -14,13 +15,15 @@ namespace WebApp.Controllers.Api
     [Route("api/trips/{tripName}/stops")]
     public class StopController : Controller
     {
+        private GeoCodingService _geoCodingService;
         private ILogger _logger;
         private IWebAppRepository _repository;
 
-        public StopController(IWebAppRepository repository, ILogger<StopController> logger)
+        public StopController(IWebAppRepository repository, ILogger<StopController> logger, GeoCodingService geoCodingService)
         {
             _repository = repository;
             _logger = logger;
+            _geoCodingService = geoCodingService;
         }
 
         [HttpGet("")]
@@ -48,7 +51,7 @@ namespace WebApp.Controllers.Api
         }
 
         [HttpPost("")]
-        public JsonResult Post(string tripName, [FromBody]StopViewModel viewModel)
+        public async Task<JsonResult> Post(string tripName, [FromBody]StopViewModel viewModel)
         {
             try
             {
@@ -58,7 +61,7 @@ namespace WebApp.Controllers.Api
                     var newStop = AutoMapper.Mapper.Map<Stop>(viewModel);
 
                     //Do Stuff here
-                    
+                    GeoCodeResult geoResult = await _geoCodingService.lookUp(newStop.Name);
 
                     //Add Stop to database
                     _logger.LogInformation("Attempting to add new stop to db.");
