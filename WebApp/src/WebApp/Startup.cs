@@ -10,6 +10,9 @@ using WebApp.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.PlatformAbstractions;
 using WebApp.Models;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
+using WebApp.ViewModels;
 
 namespace WebApp
 {
@@ -31,16 +34,30 @@ namespace WebApp
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+            services.AddLogging();
             services.AddScoped<IMailService, DebugMailService>();
             services.AddEntityFramework().AddSqlServer().AddDbContext<WebAppContext>();
             services.AddTransient<WebAppContextSeeder>();
+            services.AddScoped<IWebAppRepository, WebAppRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, WebAppContextSeeder seeder)
+        public void Configure(IApplicationBuilder app, WebAppContextSeeder seeder, ILoggerFactory logFactory)
         {
+            logFactory.AddDebug(LogLevel.Warning);
+
             app.UseStaticFiles();
+
+            AutoMapper.Mapper.Initialize(config => {
+                config.CreateMap<Trip, TripViewModel>().ReverseMap();
+            });
+
+            AutoMapper.Mapper.Initialize(config =>
+            {
+                config.CreateMap<Stop, StopViewModel>().ReverseMap();
+            });
 
             app.UseMvc(config => {
                 config.MapRoute(

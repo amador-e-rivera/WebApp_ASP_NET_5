@@ -10,18 +10,18 @@ namespace WebApp.Controllers.Web
     public class WebAppController : Controller
     {
         private IMailService _mailService;
-        private WebAppContext _context;
+        private IWebAppRepository _repository;
 
-        public WebAppController(IMailService service, WebAppContext context)
+        public WebAppController(IMailService service, IWebAppRepository repository)
         {
-            _context = context;
+            _repository = repository;
             _mailService = service;
         }
 
         public IActionResult Index()
         {
-            var trips = _context.Trips.OrderBy(c => c.Name).ToList();
-            return View();
+            var trips = _repository.getAllTrips();
+            return View(trips);
         }
 
         public IActionResult About()
