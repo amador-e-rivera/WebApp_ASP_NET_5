@@ -60,8 +60,17 @@ namespace WebApp.Controllers.Api
                     //Do Mapping
                     var newStop = AutoMapper.Mapper.Map<Stop>(viewModel);
 
-                    //Do Stuff here
+                    //Get GeoCoordinates
                     GeoCodeResult geoResult = await _geoCodingService.lookUp(newStop.Name);
+
+                    if(!geoResult.Success)
+                    {
+                        Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                        return Json(geoResult.Message);
+                    }
+
+                    newStop.Latitude = geoResult.Latitude;
+                    newStop.Longitude = geoResult.Longitude;
 
                     //Add Stop to database
                     _logger.LogInformation("Attempting to add new stop to db.");

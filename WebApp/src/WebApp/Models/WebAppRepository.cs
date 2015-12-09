@@ -27,6 +27,7 @@ namespace WebApp.Models
         {
             var trip = getTripByName(tripName);
             newStop.Order = trip.Stops.Max(c => c.Order) + 1;
+            trip.Stops.Add(newStop);
             _context.Add(newStop);
         }
 
