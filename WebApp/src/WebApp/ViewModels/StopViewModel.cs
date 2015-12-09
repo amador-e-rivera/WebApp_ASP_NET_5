@@ -17,9 +17,7 @@ namespace WebApp.ViewModels
         public double Longitude { get; set; }
         public double Latitude { get; set; }
 
-        public DateTime Arrival { get; set; } = DateTime.UtcNow;
-
         [Required]
-        public int Order { get; set; }
+        public DateTime Arrival { get; set; } = DateTime.UtcNow;
     }
 }

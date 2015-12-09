@@ -11,7 +11,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers.Api
 {
-    [Route("api/stop")]
+    [Route("api/trips/{tripName}/stops")]
     public class StopController : Controller
     {
         private ILogger _logger;
@@ -24,28 +24,50 @@ namespace WebApp.Controllers.Api
         }
 
         [HttpGet("")]
-        public JsonResult Get()
+        public JsonResult Get(string tripName)
         {
-            return Json(new { name = "Implement Get in StopController" });
+            try
+            {
+                var results = _repository.getTripByName(tripName);
+
+                if (results != null)
+                {
+                    Response.StatusCode = (int)HttpStatusCode.Found;
+                    return Json(AutoMapper.Mapper.Map<IEnumerable<StopViewModel>>(results.Stops.OrderBy(c => c.Order)));
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                _logger.LogError($"Failed to get stops for trip {tripName}", ex);
+                return Json(new { error = "Failed to get stops for trip" });
+            }
+
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            return Json(new { error = "Trip not found" });
         }
 
         [HttpPost("")]
-        public JsonResult Post([FromBody]StopViewModel viewModel)
+        public JsonResult Post(string tripName, [FromBody]StopViewModel viewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    //Do Mapping
                     var newStop = AutoMapper.Mapper.Map<Stop>(viewModel);
+
+                    //Do Stuff here
+                    
 
                     //Add Stop to database
                     _logger.LogInformation("Attempting to add new stop to db.");
-                    _repository.AddStop(newStop);
+                    _repository.AddStop(newStop, tripName);
 
                     if(_repository.SaveAll())
                     {
                         Response.StatusCode = (int)HttpStatusCode.Created;
-                        return Json(newStop);
+                        return Json(AutoMapper.Mapper.Map<StopViewModel>(newStop));
                     }
                 }
             }
@@ -57,7 +79,7 @@ namespace WebApp.Controllers.Api
             }
 
             Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            return Json(new { name = "Failed!" });
+            return Json(new { name = "Validation Failed!" });
         }
     }
 }

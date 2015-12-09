@@ -52,10 +52,6 @@ namespace WebApp
 
             AutoMapper.Mapper.Initialize(config => {
                 config.CreateMap<Trip, TripViewModel>().ReverseMap();
-            });
-
-            AutoMapper.Mapper.Initialize(config =>
-            {
                 config.CreateMap<Stop, StopViewModel>().ReverseMap();
             });
 

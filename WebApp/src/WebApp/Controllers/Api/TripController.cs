@@ -26,7 +26,7 @@ namespace WebApp.Controllers.Api
         [HttpGet("")] //Empty string allows method to use route at class level.
         public JsonResult Get()
         {
-            return Json(_repository.getAllTrips());
+            return Json(AutoMapper.Mapper.Map<IEnumerable<TripViewModel>>(_repository.getAllTripsWithStops()));
         }
 
         [HttpPost("")]

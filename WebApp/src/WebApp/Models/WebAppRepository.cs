@@ -23,8 +23,10 @@ namespace WebApp.Models
             _context.Add(newTrip);
         }
 
-        public void AddStop(Stop newStop)
+        public void AddStop(Stop newStop, string tripName)
         {
+            var trip = getTripByName(tripName);
+            newStop.Order = trip.Stops.Max(c => c.Order) + 1;
             _context.Add(newStop);
         }
 
@@ -57,6 +59,16 @@ namespace WebApp.Models
         public bool SaveAll()
         {
             return _context.SaveChanges() > 0; //Greate than zero means saved
+        }
+
+        public List<Stop> getAllStops()
+        {
+            return _context.Stops.ToList();
+        }
+
+        public Trip getTripByName(string tripName)
+        {
+            return _context.Trips.Include(t => t.Stops).Where(t => t.Name == tripName).FirstOrDefault();
         }
     }
 }

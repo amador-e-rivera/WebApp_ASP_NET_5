@@ -15,5 +15,7 @@ namespace WebApp.ViewModels
         public string Name { get; set; }
 
         public DateTime Created { get; set; } = DateTime.UtcNow;
+
+        public IEnumerable<StopViewModel> stops { get; set; }
     }
 }
