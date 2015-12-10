@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,33 +10,46 @@ namespace WebApp.Models
     public class WebAppContextSeeder
     {
         private WebAppContext _context;
+        private ILogger<WebAppContextSeeder> _logger;
         private UserManager<WebAppUser> _userManager;
 
-        public WebAppContextSeeder(WebAppContext context, UserManager<WebAppUser> manager)
+        public WebAppContextSeeder(WebAppContext context, UserManager<WebAppUser> manager, ILogger<WebAppContextSeeder> logger)
         {
             _context = context;
             _userManager = manager;
+            _logger = logger;
         }
 
         public async Task SeedDatabaseAsync()
         {
-            if(await _userManager.FindByEmailAsync("amador.e.rivera@gmail.com") != null)
+            //Seed the Identity tables
+            if(await _userManager.FindByEmailAsync("amador.e.rivera@gmail.com") == null)
             {
                 WebAppUser user = new WebAppUser()
                 {
-                    UserName = "Amador Rivera",
+                    UserName = "aerivera",
                     Email = "amador.e.rivera@gmail.com"
                 };
-                await _userManager.CreateAsync(user, Startup.Configuration["AppSettings:TestingPassword"].ToString());
+
+                string password = Startup.Configuration["AppSettings:TestingPassword"];
+
+                var result = await _userManager.CreateAsync(user, password);
+
+                if(!result.Succeeded)
+                {
+                    _logger.LogError("Could seed Identity user");
+                }
+                
             }
 
+            //Seed the Trip and Stop tables
             if(!_context.Trips.Any())
             {
                 Trip euroTrip = new Trip()
                 {
                     Name = "Europe Trip 2015",
                     Created = new DateTime(2015, 07, 01),
-                    UserName = "Amador Rivera",
+                    UserName = "aerivera",
                     Stops = new List<Stop>()
                     {
 

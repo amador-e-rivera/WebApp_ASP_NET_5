@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using WebApp.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Mvc;
 
 namespace WebApp
 {
@@ -37,8 +38,24 @@ namespace WebApp
         {
             //To use MVC, add the AddMvc() service. The CamelCaseProperty... changes any Json object properties from what ever case
             //it is to camel case.
-            services.AddMvc()
-                .AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+            services.AddMvc(config => 
+            {
+#if !DEBUG
+                config.Filters.Add(new RequireHttpsAttribute());
+#endif
+            })
+            .AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+
+            //This is added to configure the users and roles and the context in where to find the WebAppUser
+            services.AddIdentity<WebAppUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Password.RequireUppercase = false;
+                config.Password.RequireNonLetterOrDigit = false;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            })
+            .AddEntityFrameworkStores<WebAppContext>();
 
             //Added to allow the use of ILogger.
             services.AddLogging();
@@ -57,15 +74,6 @@ namespace WebApp
 
             //Similar to IMailService
             services.AddScoped<IWebAppRepository, WebAppRepository>();
-
-            //This is added to configure the users and roles and the context in where to find the WebAppUser
-            services.AddIdentity<WebAppUser, IdentityRole>(config =>
-            {
-                config.User.RequireUniqueEmail = true;
-                config.Password.RequiredLength = 8;
-                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
-            })
-            .AddEntityFrameworkStores<WebAppContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

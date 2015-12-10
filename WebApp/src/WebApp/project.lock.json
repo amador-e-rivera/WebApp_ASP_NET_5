@@ -19395,7 +19395,8 @@
       "AutoMapper >= 4.1.1",
       "System.Net.Http >= 4.0.0",
       "Newtonsoft.Json >= 7.0.1",
-      "Microsoft.AspNet.Identity.EntityFramework >= 3.0.0-rc1-final"
+      "Microsoft.AspNet.Identity.EntityFramework >= 3.0.0-rc1-final",
+      "Microsoft.AspNet.Mvc.Core >= 6.0.0-rc1-final"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []

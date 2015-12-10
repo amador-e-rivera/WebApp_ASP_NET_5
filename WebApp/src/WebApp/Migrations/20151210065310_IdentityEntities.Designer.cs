@@ -8,7 +8,7 @@ using WebApp.Models;
 namespace WebApp.Migrations
 {
     [DbContext(typeof(WebAppContext))]
-    [Migration("20151209233709_IdentityEntities")]
+    [Migration("20151210065310_IdentityEntities")]
     partial class IdentityEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
