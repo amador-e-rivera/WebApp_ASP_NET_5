@@ -1,0 +1,15 @@
+@model IEnumerable<WebApp.Models.Trip>
+
+@{ 
+    ViewBag.Title = "Trips";
+}
+
+<div>
+    <h2>Trips</h2>
+    <ul>
+        @foreach (var trip in Model)
+        {
+            <li>@trip.Name (@trip.Created.ToShortDateString())</li>
+        }
+    </ul>
+</div>

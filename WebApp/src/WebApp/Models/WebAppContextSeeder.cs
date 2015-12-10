@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,14 +9,26 @@ namespace WebApp.Models
     public class WebAppContextSeeder
     {
         private WebAppContext _context;
+        private UserManager<WebAppUser> _userManager;
 
-        public WebAppContextSeeder(WebAppContext context)
+        public WebAppContextSeeder(WebAppContext context, UserManager<WebAppUser> manager)
         {
             _context = context;
+            _userManager = manager;
         }
 
-        public void SeedDatabase()
+        public async Task SeedDatabaseAsync()
         {
+            if(await _userManager.FindByEmailAsync("amador.e.rivera@gmail.com") != null)
+            {
+                WebAppUser user = new WebAppUser()
+                {
+                    UserName = "Amador Rivera",
+                    Email = "amador.e.rivera@gmail.com"
+                };
+                await _userManager.CreateAsync(user, Startup.Configuration["AppSettings:TestingPassword"].ToString());
+            }
+
             if(!_context.Trips.Any())
             {
                 Trip euroTrip = new Trip()

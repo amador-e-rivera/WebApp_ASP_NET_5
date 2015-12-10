@@ -13,6 +13,7 @@ using WebApp.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
 using WebApp.ViewModels;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace WebApp
 {
@@ -34,22 +35,49 @@ namespace WebApp
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //To use MVC, add the AddMvc() service. The CamelCaseProperty... changes any Json object properties from what ever case
+            //it is to camel case.
             services.AddMvc()
                 .AddJsonOptions(opt => opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+
+            //Added to allow the use of ILogger.
             services.AddLogging();
+
+            //Add the Mail service. This is where you setup a service to test it. In this example, DebugMailService is being used to
+            //test. Once tested DebugMailService can be changed to the concrete implementation class.
             services.AddScoped<IMailService, DebugMailService>();
+
             services.AddScoped<GeoCodingService>();
+
+            //Add the EntityFramework and Sql Server functionality to application and supply the context to be used for the applciation.
             services.AddEntityFramework().AddSqlServer().AddDbContext<WebAppContext>();
+
+            //This is added as transient since it only needs to be called once when the app starts to make sure the db has been seeded.
             services.AddTransient<WebAppContextSeeder>();
+
+            //Similar to IMailService
             services.AddScoped<IWebAppRepository, WebAppRepository>();
+
+            //This is added to configure the users and roles and the context in where to find the WebAppUser
+            services.AddIdentity<WebAppUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+            })
+            .AddEntityFrameworkStores<WebAppContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, WebAppContextSeeder seeder, ILoggerFactory logFactory)
+        // The order matters in this method.
+        public async void Configure(IApplicationBuilder app, WebAppContextSeeder seeder, ILoggerFactory logFactory)
         {
+            //Log any Warnings
             logFactory.AddDebug(LogLevel.Warning);
 
             app.UseStaticFiles();
+
+            app.UseIdentity(); //Add the Identity service to the application
 
             AutoMapper.Mapper.Initialize(config => {
                 config.CreateMap<Trip, TripViewModel>().ReverseMap();
@@ -64,7 +92,7 @@ namespace WebApp
                 );
             });
 
-            seeder.SeedDatabase();
+            await seeder.SeedDatabaseAsync();
         }
 
         // Entry point for the application.

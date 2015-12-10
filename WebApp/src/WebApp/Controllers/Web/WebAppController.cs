@@ -4,6 +4,7 @@ using WebApp.Models;
 using WebApp.Services;
 using WebApp.ViewModels;
 using System.Linq;
+using Microsoft.AspNet.Authorization;
 
 namespace WebApp.Controllers.Web
 {
@@ -19,6 +20,12 @@ namespace WebApp.Controllers.Web
         }
 
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public IActionResult Trips()
         {
             var trips = _repository.getAllTrips();
             return View(trips);

@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <link href="~/lib/Font-Awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" tyep="text/css" />
     <link href="~/styles/site.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -25,19 +26,19 @@
                 </div>
                 <ul class="menu">
                     <li class="active">
-                        <a asp-controller="App" asp-action="Index">
+                        <a asp-controller="WebApp" asp-action="Index">
                             <span class="menu-item-icon"><i class="fa fa-home"></i></span>
                             <span class="menu-item-text">Home</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="App" asp-action="About">
+                        <a asp-controller="WebApp" asp-action="About">
                             <span class="menu-item-icon"><i class="fa fa-info"></i></span>
                             <span class="menu-item-text">About</span>
                         </a>
                     </li>
                     <li>
-                        <a asp-controller="App" asp-action="Contact">
+                        <a asp-controller="WebApp" asp-action="Contact">
                             <span class="menu-item-icon"><i class="fa fa-envelope"></i></span>
                             <span class="menu-item-text">Contact</span>
                         </a>
@@ -58,6 +59,7 @@
     </div>
 
     <script type="text/javascript" src="~/lib/jQuery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/scripts/site.js"></script>
 
     @RenderSection("Scripts", false)

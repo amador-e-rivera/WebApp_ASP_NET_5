@@ -5,11 +5,6 @@
 }
 
 <div>
-    <h2>Trips</h2>
-    <ul>
-        @foreach (var trip in Model)
-        {
-            <li>@trip.Name (@trip.Created.ToShortDateString())</li>
-        }
-    </ul>
+    <h2>Trip Manager</h2>
+    @Html.ActionLink("View Trips", "Trips", "WebApp", null, new { @class = "btn btn-lg btn-default" })
 </div>

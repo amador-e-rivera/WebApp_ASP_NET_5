@@ -1,10 +1,11 @@
 using System;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
 namespace WebApp.Models
 {
 
-    public class WebAppContext : DbContext
+    public class WebAppContext : IdentityDbContext<WebAppUser>
     {
         public DbSet<Trip> Trips { set; get; }
         public DbSet<Stop> Stops { get; set; }
