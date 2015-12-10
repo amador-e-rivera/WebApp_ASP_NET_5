@@ -63,7 +63,17 @@ input[type=text], input[type=password] {
     text-align: center;
     margin-bottom: 3px;
     cursor: pointer;
+    height: 51px;
 }
+
+    #sidebar_btn i {
+        height: 50%;
+        -moz-transform: translateY(50%);
+        -ms-transform: translateY(50%);
+        -o-transform: translateY(50%);
+        -webkit-transform: translateY(50%);
+        transform: translateY(50%);
+    }
 
 #sidebar_btn:hover {
     background-color: #E1E1E1;
@@ -174,6 +184,8 @@ input[type=text], input[type=password] {
     margin: 0;
 }
 
+
+
 #footer {
     background-color: #2F2F2F;
     color: #CECECE;
@@ -182,3 +194,11 @@ input[type=text], input[type=password] {
     bottom: 0;
 }
 /* #endregion */
+
+/* #region Bootstrap */
+
+.navbar {
+    margin: 0;
+}
+
+/* #endregion*/
