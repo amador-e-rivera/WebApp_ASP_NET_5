@@ -19,11 +19,16 @@
                 <i class="fa fa-arrows-h"></i>
             </div>
             <div id="menu-wrapper">
+
                 <div id="user">
-                    <img class="userimg" src="~/images/mypic.jpg" alt="My Picture" />
-                    <br />
-                    <span id="username">Amador R.</span>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <img class="userimg" src="~/images/mypic.jpg" alt="My Picture" />
+                        <br />
+                        <span id="username">Amador R.</span>
+                    }
                 </div>
+
                 <ul class="menu">
                     <li class="active">
                         <a asp-controller="WebApp" asp-action="Index">
@@ -49,9 +54,18 @@
         <div id="main-wrapper">
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container-fluid pull-right">
-                    <form method="post" class="navbar-form" novalidate>
-                        <input type="submit" value="Logout" class="btn btn-danger" />
-                    </form>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" asp-controller="Auth" asp-action="Logout" class="navbar-form" novalidate>
+                            <input type="submit" value="Logout" class="btn btn-danger" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form method="post" asp-controller="Auth" asp-action="Login" class="navbar-form" novalidate>
+                            <input type="submit" value="Login" class="btn btn-success" />
+                        </form>
+                    }
                 </div>
             </nav>
             <div id="main">

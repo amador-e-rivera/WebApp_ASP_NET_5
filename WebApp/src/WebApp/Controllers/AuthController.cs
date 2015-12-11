@@ -12,10 +12,12 @@ namespace WebApp.Controllers
     public class AuthController : Controller
     {
         private SignInManager<WebAppUser> _signInManager;
+        private UserManager<WebAppUser> _userManager;
 
-        public AuthController(SignInManager<WebAppUser> singInManager)
+        public AuthController(SignInManager<WebAppUser> singInManager, UserManager<WebAppUser> userManager)
         {
             _signInManager = singInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Login()
@@ -39,11 +41,11 @@ namespace WebApp.Controllers
                 {
                     if(string.IsNullOrWhiteSpace(returnUrl))
                     {
-                        RedirectToAction("Trips", "WebApp");
+                        return RedirectToAction("Trips", "WebApp");
                     }
                     else
                     {
-                        Redirect(returnUrl);
+                        return Redirect(returnUrl);
                     }
                 }
                 else
@@ -53,6 +55,16 @@ namespace WebApp.Controllers
             }
 
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                await _signInManager.SignOutAsync();
+            }
+
+            return RedirectToAction("Index", "WebApp");
         }
     }
 }
