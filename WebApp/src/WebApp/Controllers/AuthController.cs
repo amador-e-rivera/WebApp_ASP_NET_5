@@ -24,7 +24,7 @@ namespace WebApp.Controllers
         {
             if(User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Trips", "WebApp");
+                return RedirectToAction("Index", "WebApp");
             }
 
             return View();
@@ -41,7 +41,7 @@ namespace WebApp.Controllers
                 {
                     if(string.IsNullOrWhiteSpace(returnUrl))
                     {
-                        return RedirectToAction("Trips", "WebApp");
+                        return RedirectToAction("Index", "WebApp");
                     }
                     else
                     {

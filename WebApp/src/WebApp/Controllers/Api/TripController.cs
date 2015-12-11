@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Http;
+﻿using Microsoft.AspNet.Authorization;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,6 +12,7 @@ using WebApp.ViewModels;
 
 namespace WebApp.Controllers.Api
 {
+    [Authorize]
     [Route("api/trips")] //Allows to create a route for Api
     public class TripController : Controller
     {

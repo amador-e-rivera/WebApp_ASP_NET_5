@@ -36,6 +36,17 @@
                             <span class="menu-item-text">Home</span>
                         </a>
                     </li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            <a asp-controller="WebApp" asp-action="Trips">
+                                <span class="menu-item-icon"><i class="fa fa-car"></i></span>
+                                <span class="menu-item-text">Trips</span>
+                            </a>
+                        </li>
+                    }
+
                     <li>
                         <a asp-controller="WebApp" asp-action="About">
                             <span class="menu-item-icon"><i class="fa fa-info"></i></span>

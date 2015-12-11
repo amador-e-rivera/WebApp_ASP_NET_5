@@ -15,6 +15,7 @@ using Newtonsoft.Json.Serialization;
 using WebApp.ViewModels;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Authentication.Cookies;
 
 namespace WebApp
 {
@@ -54,6 +55,31 @@ namespace WebApp
                 config.Password.RequireUppercase = false;
                 config.Password.RequireNonLetterOrDigit = false;
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";
+
+                //This portion allows us to setup how to handle api calls. Without
+                //setting the Events, any request to the api to the Trips or Stops
+                //will return the login page. What we want is to simply return an
+                //unauthorized status code so that it can be handled easily by the
+                //caller.
+                config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+                {
+                    //If the api called is not logged in, then it is given that
+                    //the the api will redirect. Therefore, we will change how the
+                    //OnRedirectToLogin should handle those api calls.
+                    OnRedirectToLogin = red => {
+                        if(red.Request.Path.StartsWithSegments("/api") && 
+                            red.Response.StatusCode == StatusCodes.Status200OK)
+                        {
+                            red.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        }
+                        else
+                        {
+                            red.Response.Redirect(red.RedirectUri);
+                        }
+                        
+                        return Task.FromResult(0);
+                    }
+                };
             })
             .AddEntityFrameworkStores<WebAppContext>();
 
