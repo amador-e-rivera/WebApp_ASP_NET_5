@@ -23,9 +23,9 @@ namespace WebApp.Models
             _context.Add(newTrip);
         }
 
-        public void AddStop(Stop newStop, string tripName)
+        public void AddStop(Stop newStop, string tripName, string user)
         {
-            var trip = getTripByName(tripName);
+            var trip = getTripByName(tripName, user);
             newStop.Order = trip.Stops.Max(c => c.Order) + 1;
             trip.Stops.Add(newStop);
             _context.Add(newStop);
@@ -67,9 +67,22 @@ namespace WebApp.Models
             return _context.Stops.ToList();
         }
 
-        public Trip getTripByName(string tripName)
+        public Trip getTripByName(string tripName, string user)
         {
-            return _context.Trips.Include(t => t.Stops).Where(t => t.Name == tripName).FirstOrDefault();
+            return _context.Trips.Include(t => t.Stops).Where(t => t.Name == tripName && t.UserName == user).FirstOrDefault();
+        }
+
+        public IEnumerable<Trip> getAllUserTripsWithStops(string name)
+        {
+            try
+            {
+                return _context.Trips.Include(c => c.Stops).OrderBy(c => c.Name).Where(c => c.UserName == name).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Could not get trips with stops from database", ex);
+                return null;
+            }
         }
     }
 }

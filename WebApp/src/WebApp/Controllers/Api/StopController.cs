@@ -33,7 +33,7 @@ namespace WebApp.Controllers.Api
         {
             try
             {
-                var results = _repository.getTripByName(tripName);
+                var results = _repository.getTripByName(tripName, User.Identity.Name);
 
                 if (results != null)
                 {
@@ -76,7 +76,7 @@ namespace WebApp.Controllers.Api
 
                     //Add Stop to database
                     _logger.LogInformation("Attempting to add new stop to db.");
-                    _repository.AddStop(newStop, tripName);
+                    _repository.AddStop(newStop, tripName, User.Identity.Name);
 
                     if(_repository.SaveAll())
                     {

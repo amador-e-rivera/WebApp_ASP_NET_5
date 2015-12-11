@@ -28,7 +28,8 @@ namespace WebApp.Controllers.Api
         [HttpGet("")] //Empty string allows method to use route at class level.
         public JsonResult Get()
         {
-            return Json(AutoMapper.Mapper.Map<IEnumerable<TripViewModel>>(_repository.getAllTripsWithStops()));
+            var trips = _repository.getAllUserTripsWithStops(User.Identity.Name);
+            return Json(AutoMapper.Mapper.Map<IEnumerable<TripViewModel>>(trips));
         }
 
         [HttpPost("")]
@@ -40,6 +41,7 @@ namespace WebApp.Controllers.Api
                 {
                     //Mapping is initialized in Startup.cs
                     var newTrip = AutoMapper.Mapper.Map<Trip>(viewModel);
+                    newTrip.UserName = User.Identity.Name;
 
                     //Save to Database
                     _logger.LogInformation("Attempting to save new trip");
