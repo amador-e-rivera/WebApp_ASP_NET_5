@@ -7,6 +7,7 @@
     "jquery-validation": "~1.14.0",
     "jquery-validation-unobtrusive": "~3.2.5",
     "Font-Awesome": "~4.5.0",
-    "bootstrap": "~3.3.6"
+    "bootstrap": "~3.3.6",
+    "angularjs": "~1.4.8"
   }
 }

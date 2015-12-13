@@ -1,20 +1,25 @@
-var WEBAPP = (function () {
+(function () {
+    "use strict";
 
-    function init() {
-        setEventHandlers();
-    }
+    var WEBAPP = function () {
+        function init() {
+            setEventHandlers();
+        }
 
-    function setEventHandlers() {
-        var $sidebarAndWrapper = $("#sidebar-wrapper,#main-wrapper, #user, .menu");
+        function setEventHandlers() {
+            var $sidebarAndWrapper = $("#sidebar-wrapper,#main-wrapper, #user, .menu");
 
-        $("#sidebar_btn").on("click", function () {
-            $sidebarAndWrapper.toggleClass("hide-sidebar");
-        });
-    }
+            $("#sidebar_btn").on("click", function () {
+                $sidebarAndWrapper.toggleClass("hide-sidebar");
+            });
+        }
 
-    return {
-        init : init
+        return {
+            init: init
+        };
     };
-})();
 
-WEBAPP.init();
+    var program = WEBAPP();
+
+    program.init();
+})();

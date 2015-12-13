@@ -94,7 +94,8 @@
     <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="~/scripts/site.js"></script>
 
-    @RenderSection("Scripts", false)
+    @*The point of RenderSection is to only include scripts where the section Scripts is declared (see Trips.cshtml)*@
+    @RenderSection("Scripts", false)  
 
 </body>
 </html>

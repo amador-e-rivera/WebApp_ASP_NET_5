@@ -4,12 +4,25 @@
     ViewBag.Title = "Trips";
 }
 
-<div>
-    <h2>Trips</h2>
-    <ul>
-        @foreach (var trip in Model)
-        {
-            <li>@trip.Name (@trip.Created.ToShortDateString())</li>
-        }
-    </ul>
+@section Scripts{
+    <script type="text/javascript" src="~/lib/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="~/scripts/app-trips.js"></script>
+    <script type="text/javascript" src="~/scripts/controllers/tripsCtrl.js"></script>
+}
+
+<div class="container-fluid" ng-app="app-trips">
+
+    <div class="col-md-6 col-md-offset-3" ng-controller="tripsCtrl as model">
+        <table class="table table-responsive table-striped table-bordered">
+            <tr ng-repeat="trip in model.trips">
+                <td>
+                    {{trip.name}}
+                </td>
+                <td>
+                    {{trip.created | date:'MM/dd/yyyy'}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
 </div>
