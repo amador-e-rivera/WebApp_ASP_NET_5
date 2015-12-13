@@ -14,9 +14,9 @@ label {
     display: block;
 }
 
-input[type=text], input[type=password] {
+/*input[type=text], input[type=password] {
     width: 150px;
-}
+}*/
 
 /* #endregion */
 

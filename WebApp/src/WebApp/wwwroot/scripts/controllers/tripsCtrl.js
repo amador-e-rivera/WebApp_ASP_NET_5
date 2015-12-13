@@ -1,19 +1,31 @@
 ﻿(function (app) {
     "use strict";
 
-    app.controller("tripsCtrl", ["$scope", function tripsCtrl($scope) {
+    app.controller("tripsCtrl", ["$scope", "$http", function tripsCtrl($scope, $http) {
         var model = this;
+        model.trips = [];
+        model.newTrip = {};
+        model.errorMsg = "";
+        model.isBusy = true;
 
-        model.trips = [
-            {
-                name: "West Coast Trip",
-                created: new Date()
+        $http.get("/api/trips").then(
+            function (response) {
+                angular.copy(response.data, model.trips);
+                model.errorMsg = "";
             },
-            {
-                name: "Europe Trip",
-                created: new Date()
-            }
-        ];
+            function (error) {
+                model.errorMsg = error;
+            }).finally(function () { model.isBusy = false; });
+
+        model.addTrip = function () {
+            model.trips.push(
+                {
+                    name: model.newTrip.name,
+                    created: new Date()
+                });
+
+            model.newTrip = {};
+        };
 
     }]);
 })(angular.module("app-trips"));
