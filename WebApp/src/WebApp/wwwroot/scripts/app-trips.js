@@ -1,6 +1,22 @@
 ﻿(function () {
     "use strict";
 
-    var app = angular.module("app-trips", []);
+    angular.module("app-trips", ["ngRoute"])
+    .config(function ($routeProvider) {
+
+        $routeProvider.when("/", {
+            controller: "tripsCtrl",
+            controllerAs: "model",
+            templateUrl: "/views/tripsView.html"
+        });
+
+        $routeProvider.when("/editor", {
+            controller: "tripEditorCtrl",
+            controllerAs: "model",
+            templateUrl: "/views/tripEditorView.html"
+        });
+
+        $routeProvider.otherwise({ redirectTo: "/"});
+    });
 
 })();

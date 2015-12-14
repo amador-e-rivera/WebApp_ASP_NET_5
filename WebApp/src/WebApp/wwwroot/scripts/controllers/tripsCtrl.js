@@ -18,13 +18,20 @@
             }).finally(function () { model.isBusy = false; });
 
         model.addTrip = function () {
-            model.trips.push(
-                {
-                    name: model.newTrip.name,
-                    created: new Date()
-                });
+            model.isBusy = true;
+            model.errorMsg = "";
 
-            model.newTrip = {};
+            $http.post("/api/trips", model.newTrip).then(
+                function (response) {
+                    model.trips.push(response.data);
+                    model.newTrip = {};
+                },
+                function () {
+                    model.errorMsg = "Failed to add trip.";
+                }
+                ).finally(function () {
+                    model.isBusy = false;
+                });
         };
 
     }]);

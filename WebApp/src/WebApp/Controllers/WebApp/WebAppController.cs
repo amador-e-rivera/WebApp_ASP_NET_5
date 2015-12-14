@@ -27,8 +27,7 @@ namespace WebApp.Controllers.Web
         [Authorize]
         public IActionResult Trips()
         {
-            var trips = _repository.getAllTrips();
-            return View(trips);
+            return View();
         }
 
         public IActionResult About()
