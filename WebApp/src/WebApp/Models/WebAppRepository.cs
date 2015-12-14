@@ -26,7 +26,7 @@ namespace WebApp.Models
         public void AddStop(Stop newStop, string tripName, string user)
         {
             var trip = getTripByName(tripName, user);
-            newStop.Order = trip.Stops.Max(c => c.Order) + 1;
+            newStop.Order = trip.Stops.Count > 0 ? trip.Stops.Max(c => c.Order) + 1 : 1;
             trip.Stops.Add(newStop);
             _context.Add(newStop);
         }

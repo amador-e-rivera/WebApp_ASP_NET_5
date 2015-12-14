@@ -37,7 +37,7 @@ namespace WebApp.Controllers.Api
 
                 if (results != null)
                 {
-                    Response.StatusCode = (int)HttpStatusCode.Found;
+                    Response.StatusCode = StatusCodes.Status200OK;
                     return Json(AutoMapper.Mapper.Map<IEnumerable<StopViewModel>>(results.Stops.OrderBy(c => c.Order)));
                 }
             }

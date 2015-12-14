@@ -1,19 +1,49 @@
 ﻿<div class="container-fluid">
-    <div class="col-md-4">
-        <h2>{{model.name}}</h2>
-        <form>
-            <div class="form-group">
-                <label>Date</label>
-                <input class="form-control" />
-            </div>
-            <div class="form-group">
-                <label>Location</label>
-                <input class="form-control" />
-            </div>
-            <div><input type="submit" class="btn btn-success" value="Add" /></div>
-        </form>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <a href="#/"><i class="fa fa-angle-left"></i> Back</a>
+            <h2>{{model.tripName}}</h2>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>The Map</h2>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-2">
+            <div>
+                <wait-cursor ng-show="model.isBusy"></wait-cursor>
+                <div class="alert alert-warning" ng-show="model.errorMsg">{{model.errorMsg}}</div>
+                <table class="table table-bordered table-responsive table-striped">
+                    <tr>
+                        <td><b>Location</b></td>
+                        <td><b>Arrival</b></td>
+                        <td><b>Latitude</b></td>
+                        <td><b>Longitude</b></td>
+                    </tr>
+                    <tr ng-repeat="stop in model.stops">
+                        <td>{{stop.name}}</td>
+                        <td>{{stop.arrival | date:"MM/dd/yyyy"}}</td>
+                        <td>{{stop.latitude}}</td>
+                        <td>{{stop.longitude}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <form ng-submit="model.addStop()" name="addStopForm" novalidate>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input class="form-control" ng-model="model.stop.name" id="location" name="location" ng-minlength="5" required/>
+                        <span class="text-warning" ng-show="addStopForm.location.$error.required">Location field is required</span>
+                        <span class="text-warning" ng-show="addStopForm.location.$error.minlength">Location must be at least 5 characters</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrival">Arrival</label>
+                        <input class="form-control" ng-model="model.stop.arrival" name="arrival" id="arrival" required/>
+                        <span class="text-warning" ng-show="addStopForm.arrival.$error.required">Arrival field is required</span>
+                    </div>
+                    <div><input type="submit" class="btn btn-success" value="Add" /></div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-5 col-md-offset-2">
+            <div id="map" style="height:500px;width:600px"></div>
+        </div>
     </div>
 </div>

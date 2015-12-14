@@ -15,7 +15,9 @@
             },
             function (error) {
                 model.errorMsg = error;
-            }).finally(function () { model.isBusy = false; });
+            }).finally(function () {
+                model.isBusy = false;
+            });
 
         model.addTrip = function () {
             model.isBusy = true;

@@ -10,7 +10,7 @@
             templateUrl: "/views/tripsView.html"
         });
 
-        $routeProvider.when("/editor", {
+        $routeProvider.when("/editor/:tripName", {
             controller: "tripEditorCtrl",
             controllerAs: "model",
             templateUrl: "/views/tripEditorView.html"
