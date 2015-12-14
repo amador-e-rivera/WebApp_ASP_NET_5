@@ -11,18 +11,20 @@
         model.isBusy = true;
 
         //Get Stops
-        $http.get("/api/trips/" + model.tripName + "/stops")
-            .success( function (response) {
-                angular.copy(response, model.stops);
-                model.errorMsg = "";
-                initialize();
-            })
-            .error(function (error) {
-                model.errorMsg = error;
-            })
-            .finally(function () {
-                model.isBusy = false;
+        function getStops() {
+            $http.get("/api/trips/" + model.tripName + "/stops")
+                .success(function (response) {
+                    angular.copy(response, model.stops);
+                    model.errorMsg = "";
+                    initialize();
+                })
+                .error(function (error) {
+                    model.errorMsg = error;
+                })
+                .finally(function () {
+                    model.isBusy = false;
             });
+        }
 
         //Post Stop
         model.addStop = function () {
@@ -33,6 +35,7 @@
                 model.errorMsg = "";
                 model.stops.push(model.stop);
                 model.stop = {};
+                getStops();
             })
             .error(function (error) {
                 model.errorMsg = error;
@@ -91,6 +94,8 @@
                 path: []
             };
         }
+
+        getStops();
     }]);
 
 })(angular.module("app-trips"));
